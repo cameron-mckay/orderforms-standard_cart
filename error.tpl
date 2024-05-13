@@ -1,10 +1,10 @@
-{include file="orderforms/standard_cart/common.tpl"}
+{include file="orderforms/standard_cart_dark/common.tpl"}
 
 <div id="order-standard_cart">
 
     <div class="row">
         <div class="cart-sidebar">
-            {include file="orderforms/standard_cart/sidebar-categories.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories.tpl"}
         </div>
         <div class="cart-body">
             <div class="header-lined">
@@ -12,7 +12,7 @@
                     {$LANG.thereisaproblem}
                 </h1>
             </div>
-            {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories-collapsed.tpl"}
 
             <div class="alert alert-danger error-heading">
                 <i class="fas fa-exclamation-triangle"></i>

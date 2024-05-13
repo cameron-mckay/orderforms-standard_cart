@@ -1,9 +1,9 @@
-{include file="orderforms/standard_cart/common.tpl"}
+{include file="orderforms/standard_cart_dark/common.tpl"}
 
 <div id="order-standard_cart">
     <div class="row">
         <div class="cart-sidebar sidebar">
-            {include file="orderforms/standard_cart/sidebar-categories.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories.tpl"}
         </div>
         <div class="cart-body">
 
@@ -29,7 +29,7 @@
                 </div>
             {/if}
 
-            {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories-collapsed.tpl"}
 
             <div class="products" id="products">
                 <div class="row row-eq-height">
@@ -112,4 +112,4 @@
     </div>
 </div>
 
-{include file="orderforms/standard_cart/recommendations-modal.tpl"}
+{include file="orderforms/standard_cart_dark/recommendations-modal.tpl"}

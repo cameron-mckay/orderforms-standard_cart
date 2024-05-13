@@ -1,10 +1,10 @@
-{include file="orderforms/standard_cart/common.tpl"}
+{include file="orderforms/standard_cart_dark/common.tpl"}
 
 <div id="order-standard_cart">
 
     <div class="row">
 
-        <div class="pull-md-right col-md-9">
+        <div class="pull-md-right col-md-12">
 
             <div class="header-lined">
                 <h1>
@@ -18,15 +18,9 @@
 
         </div>
 
-        <div class="col-md-3 pull-md-left sidebar hidden-xs hidden-sm">
 
-            {include file="orderforms/standard_cart/sidebar-categories.tpl"}
+        <div class="col-md-12 pull-md-right">
 
-        </div>
-
-        <div class="col-md-9 pull-md-right">
-
-            {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
 
             {if $domain == 'register'}
                 <p>{$LANG.orderForm.findNewDomain}</p>

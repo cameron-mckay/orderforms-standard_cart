@@ -858,29 +858,11 @@ jQuery(document).ready(function(){
         existingCardInfo.slideUp().find('input').attr('disabled', 'disabled');
     });
 
-    var whmcsPaymentModuleMetadata = {
-        _source: 'checkout',
-    };
-    jQuery(".payment-methods").each(function () {
-        var element = jQuery(this);
-        WHMCS.payment.event.gatewayInit(whmcsPaymentModuleMetadata, element.val());
-        WHMCS.payment.event.gatewayOptionInit(whmcsPaymentModuleMetadata, element.val(), element);
-    })
-    .on('ifChecked', function(event) {
-        WHMCS.payment.event.gatewayUnselected(whmcsPaymentModuleMetadata);
-        WHMCS.payment.display.errorClear();
-        var element = jQuery(this);
-        var afterDefaultOnSelectOptions = {
-            complete: function () {
-                WHMCS.payment.event.gatewaySelected(whmcsPaymentModuleMetadata, element.val(), element);
-            }
-        };
-
+    jQuery(".payment-methods").on('ifChecked', function(event) {
         var existingCards = jQuery(document).find('.existing-card');
+
         if (!existingCards.length) {
-            existingCardInfo.slideUp()
-                .find('input')
-                .attr('disabled', 'disabled');
+            existingCardInfo.slideUp().find('input').attr('disabled', 'disabled');
         }
 
         if (jQuery(this).hasClass('is-credit-card')) {
@@ -968,12 +950,10 @@ jQuery(document).ready(function(){
             }
 
             if (!creditCardInputFields.is(":visible")) {
-                creditCardInputFields.slideDown(afterDefaultOnSelectOptions);
-            } else {
-                afterDefaultOnSelectOptions.complete();
+                creditCardInputFields.slideDown();
             }
         } else {
-            creditCardInputFields.slideUp(afterDefaultOnSelectOptions);
+            creditCardInputFields.slideUp();
         }
     });
 
@@ -1659,12 +1639,7 @@ jQuery(document).ready(function(){
         var postData;
 
         if (jQuery('#serviceRenewals').length >= 1) {
-            var serviceId = self.data('service-id');
-            if (serviceId.toString().startsWith('a-')) {
-                postUrl = WHMCS.utils.getRouteUrl('/cart/service/' + serviceId.substr(2) + '/addon/renew');
-            } else {
-                postUrl = WHMCS.utils.getRouteUrl('/cart/service/' + serviceId + '/product/renew');
-            }
+            postUrl = WHMCS.utils.getRouteUrl('/cart/service/' + self.data('service-id') + '/product/renew');
             postData = {
                 token: csrfToken
             };
@@ -1739,76 +1714,30 @@ jQuery(document).ready(function(){
         });
     });
 
-    jQuery('#domainRenewalFilter').on('input', function() {
+    jQuery('#domainRenewalFilter').on('keyup', function() {
         var inputText = jQuery(this).val().toLowerCase();
         jQuery('#domainRenewals').find('div.domain-renewal').filter(function() {
             jQuery(this).toggle(jQuery(this).data('domain').toLowerCase().indexOf(inputText) > -1);
         });
     });
 
-    jQuery('#serviceRenewalFilter').on('input', function() {
+    jQuery('#serviceRenewalFilter').on('keyup', function() {
         var inputText = jQuery(this).val().toLowerCase();
-        var hasMatchingInputs = function matchInputs(element, input) {
+        jQuery('#serviceRenewals').find('div.service-renewal').filter(function() {
             var isInputMatched = false;
-            if (inputText.length > 0) {
-                jQuery('#hideShowServiceRenewalButton').find('span.to-show').hide().end()
-                    .find('span.to-hide').show().end().removeAttr('disabled');
-            }
-            jQuery.each(element.data(), function(key, value) {
-                if (String(value).toLowerCase().indexOf(input) > -1) {
+            jQuery.each(jQuery(this).data(), function(key, value) {
+                if (String(value).toLowerCase().indexOf(inputText) > -1) {
                     isInputMatched = true;
                     return false;
                 }
             });
-            element.toggle(isInputMatched);
-            return isInputMatched;
-        }
-
-        jQuery('#serviceRenewals').find('.service-renewal').filter(function() {
-            var serviceRenewals = jQuery(this);
-            var addonRenewals = serviceRenewals.find('.addon-renewals');
-            var hasMatchingAddonItem = false;
-
-            if (addonRenewals.length > 0) {
-                addonRenewals.find('.service-renewal').filter(function() {
-                    hasMatchingAddonItem = hasMatchingInputs(jQuery(this), inputText);
-                });
-            }
-            if (hasMatchingAddonItem) {
-                serviceRenewals.toggle(true);
-            } else {
-                hasMatchingInputs(serviceRenewals, inputText);
-            }
-            addonRenewals.toggle(hasMatchingAddonItem);
+            jQuery(this).toggle(isInputMatched);
         });
-    });
-
-    // Hide/show Non-Renewable Services and Service Addons
-    jQuery(this).find('span.to-hide').hide().end()
-        .find('span.to-show').show().end().removeAttr('disabled');
-    hideNoneRenewableServices();
-    jQuery('#hideShowServiceRenewalButton').on('click', function() {
-        if (jQuery(this).find('span.to-show').is(":hidden")) {
-            jQuery(this).find('span.to-hide').hide().end()
-                .find('span.to-show').show().end().removeAttr('disabled');
-            hideNoneRenewableServices();
-        } else {
-            jQuery(this).find('span.to-show').hide().end()
-                .find('span.to-hide').show().end().removeAttr('disabled');
-            showNoneRenewableServices();
-        }
     });
 
     checkoutForm = jQuery('#frmCheckout');
     if (checkoutForm.length) {
         checkoutForm.on('submit', validateCheckoutCreditCardInput);
-        checkoutForm.on('submit.paymentjs', function (event) {
-            WHMCS.payment.event.checkoutFormSubmit(
-                {...whmcsPaymentModuleMetadata, ...{event: event}},
-                WHMCS.payment.event.previouslySelected.module,
-                jQuery(this)
-            );
-        });
     }
 
     jQuery(".payment-methods:checked").trigger('ifChecked');
@@ -2115,40 +2044,4 @@ function selectPreferredCard()
         select = preferred;
     }
     select.iCheck('check');
-}
-
-function showNoneRenewableServices()
-{
-    jQuery('.service-renewal, .addon-renewals').each(function () {
-        if (jQuery(this).attr('data-is-renewable') === 'false') {
-            jQuery(this).show();
-        }
-    });
-}
-
-function hideNoneRenewableServices()
-{
-    jQuery('.service-renewal, .addon-renewals').each(function (i, element) {
-        var isRenewable = jQuery(this).attr('data-is-renewable');
-        if (isRenewable === 'false') {
-            if (hasRenewableServiceAddon(element)) {
-                jQuery(this).show();
-            } else {
-                jQuery(this).hide();
-            }
-        } else if (isRenewable === 'true' ) {
-            jQuery(this).show();
-        }
-    });
-}
-
-function hasRenewableServiceAddon(data)
-{
-    var hasService = false;
-    jQuery(data).find('div.service-renewal').each(function (i, element) {
-        if (jQuery(element).attr('data-is-renewable') === 'true') {
-            return hasService = true;
-        }
-    });
-    return hasService;
 }

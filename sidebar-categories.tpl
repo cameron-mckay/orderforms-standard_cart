@@ -64,7 +64,7 @@
     {if $panel->getExtra('mobileSelect') and $panel->hasChildren()}
         {* Mobile Select only supports dropdown menus *}
         <div class="panel card hidden-lg hidden-md d-md-none{if $panel->getClass()}{$panel->getClass()}{else} panel-default{/if}"{if $panel->getAttribute('id')} id="{$panel->getAttribute('id')}"{/if}>
-            {include file="orderforms/standard_cart/sidebar-categories-selector.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories-selector.tpl"}
         </div>
     {/if}
 {/foreach}

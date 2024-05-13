@@ -9,7 +9,7 @@
         var statesTab = 10;
         var stateNotRequired = true;
     </script>
-    {include file="orderforms/standard_cart/common.tpl"}
+    {include file="orderforms/standard_cart_dark/common.tpl"}
     <script type="text/javascript" src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
 
     <div id="order-standard_cart">
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="cart-sidebar">
 
-                {include file="orderforms/standard_cart/sidebar-categories.tpl"}
+                {include file="orderforms/standard_cart_dark/sidebar-categories.tpl"}
 
             </div>
             <div class="cart-body">
@@ -25,7 +25,7 @@
                     <h1 class="font-size-36">{$LANG.cartreviewcheckout}</h1>
                 </div>
 
-                {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
+                {include file="orderforms/standard_cart_dark/sidebar-categories-collapsed.tpl"}
 
                 <div class="row">
                     <div class="secondary-cart-body">
@@ -286,15 +286,15 @@
                                     <div class="item">
                                         <div class="row">
                                             <div class="col-sm-7">
-                                                <span class="item-title">
-                                                    {lang key='renewService.titleAltSingular'}
-                                                </span>
+                                            <span class="item-title">
+                                                {lang key='renewService.titleAltSingular'}
+                                            </span>
                                                 <span class="item-group">
-                                                    {$service.name}
-                                                </span>
+                                                {$service.name}
+                                            </span>
                                                 <span class="item-domain">
-                                                    {$service.domainName}
-                                                </span>
+                                                {$service.domainName}
+                                            </span>
                                             </div>
                                             <div class="col-sm-4 item-price">
                                                 <span>{$service.recurringBeforeTax}</span>
@@ -302,34 +302,6 @@
                                             </div>
                                             <div class="col-sm-1">
                                                 <button type="button" class="btn btn-link btn-xs btn-remove-from-cart" onclick="removeItem('r','{$num}','service')">
-                                                    <i class="fas fa-times"></i>
-                                                    <span class="visible-xs d-block d-sm-none">{lang key='orderForm.remove'}</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {/foreach}
-
-                                {foreach $renewalsByType['addons'] as $num => $service}
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-sm-7">
-                                                <span class="item-title">
-                                                    {lang key='renewServiceAddon.titleAltSingular'}
-                                                </span>
-                                                <span class="item-group">
-                                                    {$service.name}
-                                                </span>
-                                                <span class="item-domain">
-                                                    {$service.domainName}
-                                                </span>
-                                            </div>
-                                            <div class="col-sm-4 item-price">
-                                                <span>{$service.recurringBeforeTax}</span>
-                                                <span class="cycle">{$service.billingCycle}</span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button type="button" class="btn btn-link btn-xs btn-remove-from-cart" onclick="removeItem('r','{$num}','addon')">
                                                     <i class="fas fa-times"></i>
                                                     <span class="visible-xs d-block d-sm-none">{lang key='orderForm.remove'}</span>
                                                 </button>
@@ -674,5 +646,5 @@
             </div>
         </form>
     </div>
-    {include file="orderforms/standard_cart/recommendations-modal.tpl"}
+    {include file="orderforms/standard_cart_dark/recommendations-modal.tpl"}
 {/if}

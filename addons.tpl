@@ -1,11 +1,11 @@
-{include file="orderforms/standard_cart/common.tpl"}
+{include file="orderforms/standard_cart_dark/common.tpl"}
 
 <div id="order-standard_cart">
 
     <div class="row">
         <div class="cart-sidebar">
 
-            {include file="orderforms/standard_cart/sidebar-categories.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories.tpl"}
 
         </div>
         <div class="cart-body">
@@ -13,7 +13,7 @@
             <div class="header-lined">
                 <h1 class="font-size-36">{$LANG.cartproductaddons}</h1>
             </div>
-            {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories-collapsed.tpl"}
 
             {if count($addons) == 0}
                 <div id="noAddons" class="alert alert-warning text-center" role="alert">

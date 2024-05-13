@@ -1,4 +1,4 @@
-{include file="orderforms/standard_cart/common.tpl"}
+{include file="orderforms/standard_cart_dark/common.tpl"}
 
 <div id="order-standard_cart">
 
@@ -12,7 +12,7 @@
 
         <div class="col-md-10 col-md-offset-1 offset-md-1">
 
-            {include file="orderforms/standard_cart/sidebar-categories-collapsed.tpl"}
+            {include file="orderforms/standard_cart_dark/sidebar-categories-collapsed.tpl"}
 
             <div class="alert alert-danger error-heading">
                 <i class="fas fa-exclamation-triangle"></i>
