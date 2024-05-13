@@ -131,7 +131,7 @@ var _localLang = {
                                         </div>
                                     </div>
                                 </div>
-
+                                <!--
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -146,7 +146,10 @@ var _localLang = {
                                         </div>
                                     </div>
                                 </div>
-
+                                -->
+                                <!-- Hide nameserver prefixes -->
+                                <input type="hidden" name="ns1prefix" class="form-control" id="inputNs1prefix" value="NA" placeholder="ns1">
+                                <input type="hidden" name="ns2prefix" class="form-control" id="inputNs2prefix" value="NA" placeholder="ns2">
                             </div>
                         {/if}
 

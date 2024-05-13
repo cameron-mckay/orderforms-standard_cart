@@ -35,13 +35,14 @@
                 <div class="row row-eq-height">
                     {foreach $products as $key => $product}
                         {$idPrefix = ($product.bid) ? ("bundle"|cat:$product.bid) : ("product"|cat:$product.pid)}
+                        {$qty = ($product.qty > 10) ? 10 : $product.qty} 
                     <div class="col-md-6">
                         <div class="product clearfix" id="{$idPrefix}">
                             <header>
                                 <span id="{$idPrefix}-name">{$product.name}</span>
                                 {if $product.stockControlEnabled}
                                     <span class="qty">
-                                            {$product.qty} {$LANG.orderavailable}
+                                            {$qty} {$LANG.orderavailable}
                                         </span>
                                 {/if}
                             </header>
